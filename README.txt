@@ -13,10 +13,10 @@ by the existing SLOCCountPlugin_ plugin for Hudson.
 Prerequisites
 -------------
 
-You need to have ohcount_ 3.0.0 or later installed and it needs to be on the
-path. You can check by calling ``ohcount --help``. ohcount can be built manually
-or is available from some system package management tools. It's available as
-``ohcount`` in the latest macports_.
+You need to have ohcount_ 3.0.0 or later installed and it needs to be directly
+executable from the path. You can check by calling ``ohcount --help``. ohcount
+can be built manually or is available from some system package management tools.
+For example it's available as ``ohcount`` in the latest macports_.
 
 The script needs at least Python 2.5 to run. It's not compatible with any
 Python 3.x version at this point.
