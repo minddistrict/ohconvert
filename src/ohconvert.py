@@ -14,7 +14,7 @@ Computing results.
 LINE = "%(loc)s\t%(language)s\t%(folder)s\t%(path)s\n"
 
 
-def main(directory=os.path.curdir):
+def count(directory=os.path.curdir):
     """Creates a slocount.sc file compatible with the Hudson plugin, but
     based on the more complete ohcount data.
     """
@@ -94,9 +94,13 @@ def main(directory=os.path.curdir):
             i += 1
 
 
-if __name__ == '__main__':
+def main():
     args = sys.argv[1:]
     if not args:
         print "You have to specify a directory to be counted."
         sys.exit(1)
-    main(directory=args[0])
+    count(directory=args[0])
+
+
+if __name__ == '__main__':
+    main()
