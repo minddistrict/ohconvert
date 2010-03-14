@@ -1,14 +1,11 @@
-ohconvert
-=========
-
 Overview
---------
+========
 
 ohconvert integrates ohcount_ into Hudson_.
 
 This script invokes ohcount, parses its output and converts it into a
 sloccount.sc file in the format defined by sloccount_. This format is understood
-by the existing SLOCCountPlugin_ plugin for Hudson.
+by the existing SLOCCountPlugin_ for Hudson.
 
 Prerequisites
 -------------
@@ -30,6 +27,11 @@ You can call the script via::
 
 It will output an intermediate ``ohcount.sc`` and the final ``sloccount.sc``
 file in the current directory.
+
+Development
+-----------
+
+The source code can be found at: http://bitbucket.org/hannosch/ohconvert/
 
 
 .. _ohcount: http://ohcount.sourceforge.net/
