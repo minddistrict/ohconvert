@@ -18,7 +18,7 @@ path. You can check by calling ``ohcount --help``. ohcount can be built manually
 or is available from some system package management tools. It's available as
 ``ohcount`` in the latest macports_.
 
-The script needs at least Python 2.6 to run. It's not compatible with any
+The script needs at least Python 2.5 to run. It's not compatible with any
 Python 3.x version at this point.
 
 Usage
@@ -26,7 +26,7 @@ Usage
 
 You can call the script via::
 
-  python2.6 ohconvert.py <folder>
+  python2.5 ohconvert.py <folder>
 
 It will output an intermediate ``ohcount.sc`` and the final ``sloccount.sc``
 file in the current directory.
