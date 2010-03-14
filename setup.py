@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 version = '1.0a1'
 
 
-setup(name='i18ndude',
+setup(name='ohconvert',
       version=version,
       description="ohconvert integrates ohcount into Hudson.",
       long_description=open("README.txt").read() + "\n" + \
@@ -20,7 +20,7 @@ setup(name='i18ndude',
       url='http://pypi.python.org/pypi/ohconvert',
       license='BSD',
       package_dir={'': 'src'},
-      packages=find_packages('src', exclude=['ez_setup']),
+      packages=find_packages('src'),
       include_package_data=True,
       zip_safe=False,
       install_requires=['setuptools'],
