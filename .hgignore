@@ -1,0 +1,12 @@
+syntax: glob
+*.pyc
+*~
+*.swp
+.coverage
+ohconvert.egg-info
+build
+dist
+lib
+bin
+include
+\.Python
