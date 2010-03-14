@@ -1,4 +1,4 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 version = '1.0a1'
 
@@ -20,8 +20,7 @@ setup(name='ohconvert',
       url='http://pypi.python.org/pypi/ohconvert',
       license='BSD',
       package_dir={'': 'src'},
-      packages=find_packages('src'),
-      include_package_data=True,
+      py_modules=['ohconvert'],
       zip_safe=False,
       install_requires=['setuptools'],
       entry_points="""
