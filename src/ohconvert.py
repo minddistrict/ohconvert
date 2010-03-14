@@ -33,7 +33,7 @@ def count(directory=os.path.curdir):
         lines = fd.readlines()
 
     # Chop of header
-    if len(lines) < 5:
+    if len(lines) < 4:
         print "ohcount file header didn't match our format assumptions."
         sys.exit(1)
     lines = lines[4:]
