@@ -15,6 +15,10 @@ def count(names):
     """Create ouptut equivalent to::
     sloccount --duplicates --wide --details path ...
     """
+    missing = [name for name in names if not os.path.exists(name)]
+    names = [name for name in names if name not in missing]
+    for name in missing:
+        yield "WARNING!!! Not a file nor a directory (so ignored): %s" % name
     if len(names) == 1:
         directory = os.path.abspath(names[0])
         paths = [os.path.join(directory, name) for name in os.listdir(directory) if not name.startswith('.')]
@@ -69,7 +73,7 @@ def main():
                       dest="output", default=None)
     options, args = parser.parse_args()
     if not args:
-        parser.error("You must specify a path to be counted.")
+        parser.error("No directories for initial analysis supplied.")
     if options.output is None:
         out = sys.stdout
     else:
