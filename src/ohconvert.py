@@ -1,106 +1,80 @@
-from __future__ import with_statement
+#!/usr/bin/env python
+"""\
+Usage: %prog path ...
 
-import os
-import sys
-
-HEADER = """\
-Creating filelist for %(folder)s
-Categorizing files.
-Computing results.
-
-
+Output Hudson SLOCCountPlugin compatible data collected with ohcount.\
 """
+usage = __doc__
 
-LINE = "%(loc)s\t%(language)s\t%(folder)s\t%(path)s\n"
+import os.path
+import sys
+from optparse import OptionParser
+from subprocess import Popen, PIPE
 
-
-def count(directory=os.path.curdir):
-    """Creates a slocount.sc file compatible with the Hudson plugin, but
-    based on the more complete ohcount data.
+def count(names):
+    """Create ouptut equivalent to::
+    sloccount --duplicates --wide --details path ...
     """
-    base = os.path.abspath(os.path.curdir)
-    directory = os.path.abspath(directory)
+    if len(names) == 1:
+        directory = os.path.abspath(names[0])
+        paths = [os.path.join(directory, name) for name in os.listdir(directory) if not name.startswith('.')]
+    else:
+        paths = [os.path.abspath(name) for name in names]
+    directories = [path for path in paths if os.path.isdir(path)]
+    top_dir = [path for path in paths if path not in directories]
+    if top_dir:
+        yield "Have a non-directory at the top, so creating directory top_dir"
+        for path in top_dir:
+            yield "Adding %s to top_dir" % path
+    for entry in directories:
+        yield "Creating filelist for %s" % entry
+    yield "Categorizing files."
+    yield "Computing results.\n\n"
+    for output in count_paths('top_dir', top_dir):
+        yield output
+    for directory in directories:
+        for output in count_directory(directory):
+            yield output
+
+def count_directory(directory):
     directoryname = os.path.basename(directory)
+    stdout, stderr = Popen(['ohcount', '-d', directory], stdout=PIPE).communicate()
+    lines = (line.split('\t') for line in stdout.split('\n')[:-1])
+    paths = (path for lang, path in lines if lang != '(null)')
+    for output in count_paths(directoryname, paths):
+        yield output
 
-    os.system('ohcount -i %s > ohcount.sc' % directory)
+def count_paths(directoryname, paths):
+    for path in paths:
+        output = ohcount_file(path, directoryname)
+        if output is not None:
+            yield output
 
-    infile = os.path.join(base, 'ohcount.sc')
-    if not os.path.exists(infile):
-        sys.exit(1)
+def ohcount_file(path, directoryname):
+        stdout, stderr = Popen(['ohcount', '-i', path], stdout=PIPE).communicate()
+        result = stdout.split('\n')[4]
+        if result:
+            lang, code = result.split()[:2]
+            return '\t'.join((code, lang, directoryname, path))
 
-    lines = None
-    with open(infile, 'r') as fd:
-        lines = fd.readlines()
-
-    # Chop of header
-    if len(lines) < 4:
-        print "ohcount file header didn't match our format assumptions."
-        sys.exit(1)
-    lines = lines[4:]
-
-    result = []
-    files = []
+def add_newlines(lines):
     for line in lines:
-        columns = line.split()
-        filename = columns[-1]
-        files.append(filename)
-        result.append(dict(
-            language=columns[0],
-            filename=filename,
-            loc=columns[-2],
-        ))
-
-    # What follows is a bit of a hack. Unfortunately ohcount only reports
-    # filenames in its output, but we need full paths. The reported filenames
-    # aren't unique, so for example `__init__.py` occurs quite often.
-
-    # Build a list of full paths for each file
-    paths = []
-    for (dirpath, dirnames, filenames) in os.walk(directory):
-        if '.svn' not in dirpath:
-            for f in filenames:
-                if not f.endswith('pyc'):
-                    paths.append((f, os.path.join(dirpath, f)))
-
-    # Build a dict pointing to the paths. We use the index in the files list
-    # as the key. paths contains more values than files, as the former only
-    # containes files recognized by ohcount. The order of appearance in those
-    # two lists isn't the same, so we have to start looking for the correct
-    # file from the beginning each time
-    indexedfiles = {}
-    i = 0
-    for f in files:
-        for f_, p in paths:
-            if f_ == f:
-                index = paths.index((f_, p))
-                indexedfiles[i] = p
-                paths.pop(index)
-                break
-        i += 1
-
-    outfile = os.path.join(base, 'sloccount.sc')
-    with open(outfile, 'w') as fd:
-        fd.write(HEADER % dict(folder=directoryname))
-        i = 0
-        # result and files have the same index positions
-        for r in result:
-            # 15 python  folder  /path/to/folder/filename.ext
-            fd.write(LINE % dict(
-                loc=r['loc'],
-                language=r['language'],
-                folder=directoryname,
-                path=indexedfiles[i],
-            ))
-            i += 1
-
+        yield line
+        yield '\n'
 
 def main():
-    args = sys.argv[1:]
+    parser = OptionParser(usage=usage)
+    parser.add_option("-o", "--output", metavar="sloccount.sc",
+                      help="Output filename (instead of stdout)",
+                      dest="output", default=None)
+    options, args = parser.parse_args()
     if not args:
-        print "You have to specify a directory to be counted."
-        sys.exit(1)
-    count(directory=args[0])
-
+        parser.error("You must specify a path to be counted.")
+    if options.output is None:
+        out = sys.stdout
+    else:
+        out = open(options.output, 'wt')
+    out.writelines(add_newlines(count(args)))
 
 if __name__ == '__main__':
     main()

@@ -3,9 +3,11 @@ Overview
 
 ohconvert integrates ohcount_ into Hudson_.
 
-This script invokes ohcount, parses its output and converts it into a
-sloccount.sc file in the format defined by sloccount_. This format is understood
-by the existing SLOCCountPlugin_ for Hudson.
+This script invokes ohcount, parses its output and converts it into the format
+understood by the SLOCCountPlugin_ for Hudson. This is equivalent to calling
+sloccount_ with the options::
+
+    sloccount --duplicates --wide --details path ...
 
 Prerequisites
 -------------
@@ -15,18 +17,18 @@ executable from the path. You can check by calling ``ohcount --help``. ohcount
 can be built manually or is available from some system package management tools.
 For example it's available as ``ohcount`` in the latest macports_.
 
-The script needs at least Python 2.5 to run. It's not compatible with any
-Python 3.x version at this point.
-
 Usage
 -----
+::
+    ohconvert path ...
 
-You can call the script via::
+    Output Hudson SLOCCountPlugin compatible data collected with ohcount.
 
-  python2.5 ohconvert.py <folder>
+    Options:
+      -h, --help            show this help message and exit
+      -o sloccount.sc, --output=sloccount.sc
+                            Output filename (instead of stdout)
 
-It will output an intermediate ``ohcount.sc`` and the final ``sloccount.sc``
-file in the current directory.
 
 Development
 -----------
