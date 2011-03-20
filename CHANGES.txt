@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0a2 (unreleased)
+1.0b1 - 2011-03-20
 ------------------
 
 **UPGRADE NOTE:** ohconvert now outputs to stdout by default.
@@ -12,7 +12,7 @@ Changelog
 - A fix for handling empty files turned into a complete refactoring.
   [lrowe]
 
-1.0a1 (2010-03-14)
+1.0a1 - 2010-03-14
 ------------------
 
 - Initial functional release.
