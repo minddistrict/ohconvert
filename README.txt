@@ -19,21 +19,22 @@ For example it's available as ``ohcount`` in the latest macports_.
 
 Usage
 -----
-::
+
+You can call the script via::
+
     ohconvert path ...
 
-    Output Jenkins SLOCCountPlugin compatible data collected with ohcount.
+Output Jenkins SLOCCountPlugin compatible data collected with ohcount.
 
-    Options:
-      -h, --help            show this help message and exit
-      -o sloccount.sc, --output=sloccount.sc
-                            Output filename (instead of stdout)
+Options:
 
+* `-h, --help` show this help message and exit
+* `-o sloccount.sc, --output=sloccount.sc` Output filename (instead of stdout)
 
 Development
 -----------
 
-The source code can be found at: http://bitbucket.org/hannosch/ohconvert/
+The source code can be found at: https://github.com/hannosch/ohconvert
 
 
 .. _ohcount: http://ohcount.sourceforge.net/
