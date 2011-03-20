@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0 - unreleased
+1.0 - 2011-03-20
 ----------------
 
 - Fixed reStructuredText and updated code location.

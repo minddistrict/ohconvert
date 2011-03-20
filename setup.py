@@ -1,6 +1,6 @@
 from setuptools import setup
 
-version = '1.0b2'
+version = '1.0'
 
 
 setup(name='ohconvert',
