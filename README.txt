@@ -1,10 +1,10 @@
 Overview
 ========
 
-ohconvert integrates ohcount_ into Hudson_.
+ohconvert integrates ohcount_ into Jenkins_.
 
 This script invokes ohcount, parses its output and converts it into the format
-understood by the SLOCCountPlugin_ for Hudson. This is equivalent to calling
+understood by the SLOCCountPlugin_ for Jenkins. This is equivalent to calling
 sloccount_ with the options::
 
     sloccount --duplicates --wide --details path ...
@@ -22,7 +22,7 @@ Usage
 ::
     ohconvert path ...
 
-    Output Hudson SLOCCountPlugin compatible data collected with ohcount.
+    Output Jenkins SLOCCountPlugin compatible data collected with ohcount.
 
     Options:
       -h, --help            show this help message and exit
@@ -37,7 +37,7 @@ The source code can be found at: http://bitbucket.org/hannosch/ohconvert/
 
 
 .. _ohcount: http://ohcount.sourceforge.net/
-.. _Hudson: http://hudson-ci.org/
+.. _Jenkins: http://jenkins-ci.org/
 .. _sloccount: http://www.dwheeler.com/sloccount/
-.. _SLOCCountPlugin: http://wiki.hudson-ci.org/display/HUDSON/SLOCCount+Plugin
+.. _SLOCCountPlugin: http://wiki.jenkins-ci.org/display/JENKINS/SLOCCount+Plugin
 .. _macports: http://www.macports.org/

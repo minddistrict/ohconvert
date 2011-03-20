@@ -2,7 +2,7 @@
 """\
 Usage: %prog path ...
 
-Output Hudson SLOCCountPlugin compatible data collected with ohcount.\
+Output Jenkins SLOCCountPlugin compatible data collected with ohcount.\
 """
 usage = __doc__
 

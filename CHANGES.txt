@@ -6,6 +6,9 @@ Changelog
 
 **UPGRADE NOTE:** ohconvert now outputs to stdout by default.
 
+- Refer to Jenkins instead of Hudson.
+  [hannosch]
+
 - A fix for handling empty files turned into a complete refactoring.
   [lrowe]
 

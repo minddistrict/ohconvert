@@ -5,7 +5,7 @@ version = '1.0a2'
 
 setup(name='ohconvert',
       version=version,
-      description="ohconvert integrates ohcount into Hudson.",
+      description="ohconvert integrates ohcount into Jenkins.",
       long_description=open("README.txt").read() + "\n" + \
                        open("CHANGES.txt").read(),
       classifiers=[
@@ -14,7 +14,7 @@ setup(name='ohconvert',
         'Programming Language :: Python',
         'Topic :: Utilities',
         ],
-      keywords='ohcount hudson sloccount',
+      keywords='ohcount jenkins sloccount',
       author='Hanno Schlichting, Laurence Rowe',
       author_email='hanno@hannosch.eu',
       url='http://pypi.python.org/pypi/ohconvert',
